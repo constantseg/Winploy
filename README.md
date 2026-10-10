@@ -44,9 +44,18 @@ WinRM sur chaque poste, installe ou désinstalle, et affiche l'avancement poste 
   des cibles.
 - WinGet (App Installer) présent pour les paquets WinGet.
 
+## Installation
+
+Télécharger l'archive `WinPloy-<version>-win-x64.zip` de la [dernière release](../../releases/latest),
+la décompresser où l'on veut, puis lancer `WinPloy.exe` : l'élévation en administrateur est demandée
+automatiquement. Le runtime .NET est inclus dans l'archive, il n'y a rien d'autre à installer.
+
+L'exécutable n'étant pas signé, Windows SmartScreen affiche un avertissement au premier lancement :
+« Informations complémentaires » puis « Exécuter quand même ».
+
 ## Compilation
 
-Le SDK .NET 8 (ou plus récent) est nécessaire.
+Pour compiler soi-même, le SDK .NET 8 (ou plus récent) est nécessaire.
 
 ```bash
 dotnet build WinPloy.sln -c Release
@@ -63,7 +72,7 @@ Lancer ensuite `publish\WinPloy.exe`.
 
 ## Utilisation
 
-1. **Réglages** (icône engrenage) : indiquer le chemin UNC du catalogue partagé, par exemple
+1. **Réglages** (icône engrenage) : au premier lancement, indiquer le chemin UNC du catalogue partagé, par exemple
    `\\serveur\depot\catalogue.json`. Le dossier de ce fichier sert de racine au dépôt des paquets
    personnalisés. Régler au besoin le délai par paquet (1 à 240 min, 30 par défaut) et le nombre de
    postes traités en parallèle (1 à 50, 10 par défaut).
