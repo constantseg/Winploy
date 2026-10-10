@@ -6,6 +6,11 @@ poste d'administration, via WinRM. Application de bureau Windows (C# .NET 8 + WP
 On choisit des postes, on choisit des applications, on clique sur **Exécuter** : WinPloy ouvre une session
 WinRM sur chaque poste, installe ou désinstalle, et affiche l'avancement poste par poste.
 
+![Interface de WinPloy : postes, applications et déploiement en trois volets, suivi en bas](docs/images/interface.png)
+
+*Les trois étapes de gauche à droite — choisir les postes, choisir les applications, lancer — et le suivi
+en bas : état par poste, détail par paquet et journal.*
+
 - **Applications WinGet** : installées depuis la source `winget` du poste cible, en SYSTEM.
 - **Paquets personnalisés** : un `.msi` ou un script (`ps1`, `bat`, `cmd`, `exe`) posé sur un partage.
   Le dossier du script est copié sur le poste par la session WinRM, exécuté, puis supprimé : le poste
@@ -140,8 +145,9 @@ src/WinPloy.Core/              Bibliothèque : modèles, services, moteur de dé
   Deployment/Remote/RemoteAction.ps1   Script exécuté sur le poste cible, embarqué dans l'assembly
 src/WinPloy/                   Application WPF : fenêtres, ViewModel, thème
 tests/WinPloy.Tests/           Tests unitaires xUnit, sans réseau ni domaine
-assets/                        Icône de l'application
+assets/                        Icône de l'application, utilisée à la compilation
 docs/PLAN-CONVERSION.md        Plan de la conversion PowerShell → C#
+docs/images/                   Captures d'écran du README
 legacy/Winploy-GUI.ps1         Script PowerShell d'origine (v1.0.0), conservé pour référence
 ```
 
