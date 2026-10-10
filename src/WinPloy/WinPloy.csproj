@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>WinPloy</RootNamespace>
+    <AssemblyName>WinPloy</AssemblyName>
+    <!-- Exécution en administrateur obligatoire (TrustedHosts, WinRM). -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\..\assets\winploy.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Icône des fenêtres et logo de la barre de commandes. Link conserve l'URI « /winploy.ico ». -->
+    <Resource Include="..\..\assets\winploy.ico" Link="winploy.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WinPloy.Core\WinPloy.Core.csproj" />
+  </ItemGroup>
+
+</Project>

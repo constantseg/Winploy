@@ -1,0 +1,39 @@
+<Window x:Class="WinPloy.Views.CustomPackageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Style="{StaticResource DialogWindow}" WindowStartupLocation="CenterOwner" Title="Paquet personnalisé" Width="620"
+        FocusManager.FocusedElement="{Binding ElementName=TxtName}">
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Style="{StaticResource DialogFooter}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Style="{StaticResource DialogPrimaryButton}" Content="Enregistrer" IsDefault="True" Click="BtnOk_Click" />
+                <Button Style="{StaticResource DialogButton}" Content="Annuler" IsCancel="True" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel Margin="24,20,24,24">
+            <TextBlock Style="{StaticResource DialogHeading}" Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" />
+            <TextBlock Style="{StaticResource Hint}" Margin="0,0,0,20"
+                       Text="Le dossier du script est copié sur le poste par la session WinRM, exécuté, puis supprimé. Types acceptés : msi, ps1, bat, cmd, exe. Un .msi est lancé par msiexec /i (ou /x) /qn /norestart. Codes de succès : 0 et 3010." />
+
+            <TextBlock Style="{StaticResource FieldLabel}" Text="Nom du paquet" />
+            <TextBox x:Name="TxtName" Margin="0,0,0,16" />
+
+            <TextBlock Style="{StaticResource FieldLabel}" Text="Script d'installation" />
+            <DockPanel Margin="0,0,0,16">
+                <Button DockPanel.Dock="Right" Content="Parcourir…" Margin="8,0,0,0" Click="BtnBrowseInstall_Click" />
+                <TextBox x:Name="TxtInstall" Tag="\\serveur\depot\Paquet\install.ps1" />
+            </DockPanel>
+
+            <TextBlock Style="{StaticResource FieldLabel}" Text="Script de désinstallation" />
+            <DockPanel Margin="0,0,0,18">
+                <Button DockPanel.Dock="Right" Content="Parcourir…" Margin="8,0,0,0" Click="BtnBrowseUninstall_Click" />
+                <TextBox x:Name="TxtUninstall" Tag="\\serveur\depot\Paquet\uninstall.ps1" />
+            </DockPanel>
+
+            <CheckBox x:Name="ChkRunAsSystem" Content="Exécuter en NT AUTHORITY\SYSTEM" Margin="0,0,0,6" />
+            <TextBlock Style="{StaticResource Hint}" Margin="28,0,0,0"
+                       Text="Passe par une tâche planifiée temporaire. Sans cette option, le script s'exécute avec le compte de la session WinRM, et non avec l'utilisateur connecté au poste." />
+        </StackPanel>
+    </DockPanel>
+</Window>

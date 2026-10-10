@@ -1,0 +1,46 @@
+<Window x:Class="WinPloy.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Style="{StaticResource DialogWindow}" WindowStartupLocation="CenterOwner" Title="Réglages" Width="600"
+        FocusManager.FocusedElement="{Binding ElementName=TxtCataloguePath}">
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Style="{StaticResource DialogFooter}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Style="{StaticResource DialogPrimaryButton}" Content="Enregistrer" IsDefault="True" Click="BtnSave_Click" />
+                <Button Style="{StaticResource DialogButton}" Content="Annuler" IsCancel="True" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel Margin="24,20,24,24">
+            <TextBlock Style="{StaticResource DialogHeading}" Text="Réglages" />
+            <TextBlock Style="{StaticResource Hint}" Margin="0,0,0,20"
+                       Text="Enregistrés pour ce poste d'administration dans ProgramData\WinPloy\config.json." />
+
+            <TextBlock Style="{StaticResource FieldLabel}" Text="Catalogue partagé (fichier JSON)" />
+            <DockPanel Margin="0,0,0,6">
+                <Button DockPanel.Dock="Right" Content="Parcourir…" Margin="8,0,0,0" Click="BtnBrowse_Click" />
+                <TextBox x:Name="TxtCataloguePath" />
+            </DockPanel>
+            <TextBlock Style="{StaticResource Hint}" Margin="0,0,0,18"
+                       Text="Chemin UNC accessible à tous les administrateurs, par exemple \\serveur\depot\catalogue.json." />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Style="{StaticResource FieldLabel}" Text="Délai par paquet (minutes)" />
+                    <TextBox x:Name="TxtTimeout" Margin="0,0,0,6" />
+                    <TextBlock Style="{StaticResource Hint}" Text="De 1 à 240." />
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Style="{StaticResource FieldLabel}" Text="Postes traités en parallèle" />
+                    <TextBox x:Name="TxtParallel" Margin="0,0,0,6" />
+                    <TextBlock Style="{StaticResource Hint}" Text="De 1 à 50." />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </DockPanel>
+</Window>

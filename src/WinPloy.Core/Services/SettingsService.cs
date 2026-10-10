@@ -1,0 +1,97 @@
+using System.Globalization;
+using System.Text.Json.Nodes;
+using WinPloy.Core.Models;
+
+namespace WinPloy.Core.Services;
+
+/// <summary>Lecture et écriture de config.json. Les valeurs hors bornes reprennent leur valeur par défaut.</summary>
+public sealed class SettingsService
+{
+    private readonly string _file;
+    private readonly LogService _log;
+
+    public SettingsService(string file, LogService log)
+    {
+        _file = file;
+        _log = log;
+    }
+
+    public AppSettings Load()
+    {
+        var settings = new AppSettings();
+        if (!File.Exists(_file))
+        {
+            return settings;
+        }
+
+        JsonObject? obj;
+        try
+        {
+            obj = JsonHelpers.ParseFile(_file) as JsonObject;
+        }
+        catch (Exception)
+        {
+            return settings;
+        }
+
+        if (obj is null)
+        {
+            return settings;
+        }
+
+        if (JsonHelpers.TryGetProperty(obj, "CataloguePath", out var path) && JsonHelpers.AsString(path) is { Length: > 0 } cataloguePath)
+        {
+            settings = settings with { CataloguePath = cataloguePath };
+        }
+        if (JsonHelpers.TryGetProperty(obj, "PackageTimeoutMin", out var timeout))
+        {
+            settings = settings with
+            {
+                PackageTimeoutMin = ParseClamped(JsonHelpers.AsString(timeout), AppSettings.MinTimeoutMin, AppSettings.MaxTimeoutMin, AppSettings.DefaultTimeoutMin),
+            };
+        }
+        if (JsonHelpers.TryGetProperty(obj, "MaxParallel", out var parallel))
+        {
+            settings = settings with
+            {
+                MaxParallel = ParseClamped(JsonHelpers.AsString(parallel), AppSettings.MinParallel, AppSettings.MaxParallelLimit, AppSettings.DefaultParallel),
+            };
+        }
+        return settings;
+    }
+
+    public bool TrySave(AppSettings settings, out string? error)
+    {
+        try
+        {
+            var obj = new JsonObject
+            {
+                ["CataloguePath"] = settings.CataloguePath,
+                ["PackageTimeoutMin"] = settings.PackageTimeoutMin,
+                ["MaxParallel"] = settings.MaxParallel,
+            };
+            var dir = Path.GetDirectoryName(_file);
+            if (!string.IsNullOrEmpty(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            File.WriteAllText(_file, JsonHelpers.Serialize(obj), JsonHelpers.Utf8NoBom);
+            error = null;
+            return true;
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            _log.Write($"Impossible d'enregistrer les réglages : {ex.Message}", LogService.Error);
+            return false;
+        }
+    }
+
+    /// <summary>Entier compris entre <paramref name="min"/> et <paramref name="max"/>, sinon <paramref name="fallback"/>.</summary>
+    public static int ParseClamped(string? text, int min, int max, int fallback)
+    {
+        return int.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) && value >= min && value <= max
+            ? value
+            : fallback;
+    }
+}

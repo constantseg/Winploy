@@ -1,0 +1,21 @@
+# Build .NET
+bin/
+obj/
+publish/
+artifacts/
+TestResults/
+*.binlog
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+*.DotSettings.user
+
+# Outils
+.claude/settings.local.json
+
+# Système
+Thumbs.db
+.DS_Store

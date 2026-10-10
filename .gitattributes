@@ -1,0 +1,13 @@
+# Normalise les fins de ligne : le dépôt stocke du LF, Windows récupère du CRLF.
+* text=auto
+
+*.cs      text diff=csharp
+*.csproj  text
+*.sln     text eol=crlf
+*.xaml    text
+*.ps1     text eol=crlf
+*.md      text
+*.json    text
+
+*.ico binary
+*.png binary

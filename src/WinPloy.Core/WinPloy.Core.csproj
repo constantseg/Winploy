@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>WinPloy.Core</RootNamespace>
+    <AssemblyName>WinPloy.Core</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.4.20" />
+    <PackageReference Include="System.DirectoryServices" Version="8.0.0" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Script exécuté sur le poste cible dans la session WinRM (Windows PowerShell 5.1). -->
+    <EmbeddedResource Include="Deployment\Remote\RemoteAction.ps1" LogicalName="WinPloy.RemoteAction.ps1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="WinPloy.Tests" />
+  </ItemGroup>
+
+</Project>
