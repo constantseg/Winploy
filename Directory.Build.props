@@ -7,7 +7,8 @@
     <Version>2.0.0</Version>
     <Authors>Constant Segretain</Authors>
     <Product>WinPloy</Product>
-    <Copyright>Constant Segretain</Copyright>
+    <Copyright>Copyright 2026 Constant Segretain</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <!-- Le SDK PowerShell embarque de nombreuses ressources localisées : seules les ressources françaises sont gardées. -->
     <SatelliteResourceLanguages>fr</SatelliteResourceLanguages>
   </PropertyGroup>

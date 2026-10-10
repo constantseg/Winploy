@@ -153,6 +153,10 @@ Différences avec la version PowerShell :
 Le format du catalogue n'a pas changé : les deux versions peuvent l'utiliser en même temps pendant la
 transition.
 
+## Licence
+
+Distribué sous licence [Apache 2.0](LICENSE) — Copyright 2026 Constant Segretain.
+
 ---
 
 Auteur : Constant Segretain
